@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Readiness Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .submit-btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="your-logo-url-here" alt="Company Logo" class="logo">
+        <h2>AI Readiness Assessment</h2>
+        <form id="quizForm">
+            <div class="question">
+                <label>1. Do you have structured digital data that AI tools can analyze?</label><br>
+                <select name="data_readiness">
+                    <option value="1">No structured data</option>
+                    <option value="2">Some structured data</option>
+                    <option value="3">Mostly structured data</option>
+                    <option value="4">Fully structured and organized</option>
+                </select>
+            </div>
+            
+            <div class="question">
+                <label>2. Do you use automation tools in your business?</label><br>
+                <select name="automation_use">
+                    <option value="1">Not at all</option>
+                    <option value="2">Some manual automation</option>
+                    <option value="3">Several automated processes</option>
+                    <option value="4">Highly automated workflows</option>
+                </select>
+            </div>
+            
+            <div class="question">
+                <label>3. How comfortable is your team with AI concepts?</label><br>
+                <select name="ai_literacy">
+                    <option value="1">Not familiar</option>
+                    <option value="2">Somewhat familiar</option>
+                    <option value="3">Comfortable with basic AI</option>
+                    <option value="4">Very experienced with AI</option>
+                </select>
+            </div>
+            
+            <div class="question">
+                <label>4. Do you use cloud-based software and integrations?</label><br>
+                <select name="technology_infrastructure">
+                    <option value="1">Not at all</option>
+                    <option value="2">Some cloud adoption</option>
+                    <option value="3">Mostly cloud-based</option>
+                    <option value="4">Fully cloud-integrated</option>
+                </select>
+            </div>
+            
+            <div class="question">
+                <label>5. How committed is leadership to adopting AI in your organization?</label><br>
+                <select name="leadership_commitment">
+                    <option value="1">Not interested</option>
+                    <option value="2">Exploring possibilities</option>
+                    <option value="3">Actively planning AI adoption</option>
+                    <option value="4">Fully committed and investing in AI</option>
+                </select>
+            </div>
+            
+            <button type="button" class="submit-btn" onclick="calculateScore()">Submit</button>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+
+   <script>
+    async function calculateScore() {
+    const formData = new FormData(document.getElementById("quizForm"));
+    let data = {};
+
+    formData.forEach((value, key) => {
+        data[key] = parseInt(value);
+    });
+
+    try {
+        const response = await fetch("https://ai-readiness-api.onrender.com/process_score", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            const baseURL = "https://ai-readiness-api.onrender.com"; // Ensure full URL is used
+            const fullDownloadURL = baseURL + result.report_url; 
+
+            document.getElementById("result").innerHTML = `
+                <p>Your AI Readiness Score: <strong>${result.score}</strong></p>
+                <p><strong>Readiness Level:</strong> ${result.result}</p>
+                <a id="downloadReportBtn" href="${fullDownloadURL}">
+                    <button class="submit-btn">Download Report</button>
+                </a>
+            `;
+
+            // Fix for Safari: Ensure the file downloads when the button is clicked
+            const downloadBtn = document.getElementById("downloadReportBtn");
+            downloadBtn.addEventListener("click", function (event) {
+                event.preventDefault();
+                const link = document.createElement("a");
+                link.href = fullDownloadURL;
+                link.download = "AI_Readiness_Report.pdf";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        } else {
+            document.getElementById("result").innerHTML = `<p style="color: red;">Error: ${result.error}</p>`;
+        }
+    } catch (error) {
+        document.getElementById("result").innerHTML = `<p style="color: red;">Network error. Please try again.</p>`;
+    }
+}
+
+</script>
+</body>
+</html>
