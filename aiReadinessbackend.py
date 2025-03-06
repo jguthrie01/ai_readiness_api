@@ -76,7 +76,7 @@ def generate_report(score, breakdown, result, recommendations, readiness_timelin
     pdf.set_font("Arial", "", 10)
     pdf.multi_cell(0, 6, "If you're ready to take the next step, email us at contact@wysstrategies.com.")
 
-    file_path = "ai_readiness_report.pdf"
+    file_path = "/tmp/ai_readiness_report.pdf"
     pdf.output(file_path)
     os.remove(chart_path)  # Clean up chart image
     return file_path
@@ -130,5 +130,16 @@ def process_score():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/download_report', methods=['GET'])
+def download_report():
+    report_path = "/tmp/ai_readiness_report.pdf"
+    if not os.path.exists(report_path):
+        return jsonify({"error": "Report file not found"}), 404
+    return send_file(report_path, as_attachment=True)
+
+import os
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    port = int(os.environ.get("PORT", 5000))  # Use Render-assigned port or default to 5000
+    app.run(debug=True, host='0.0.0.0', port=port)
+
