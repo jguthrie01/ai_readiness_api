@@ -1,0 +1,166 @@
+/* Base Styles */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 18px; /* Default font size for all text */
+    color: #333;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+}
+/* Center the entire page */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Avoid pushing elements too far down */
+    min-height: 100vh;
+    text-align: center;
+    padding: 0; /* Remove extra padding */
+    margin: 0;
+}
+
+/* Add space between labels and dropdowns */
+.question label {
+    display: block;
+    font-size: 18px; /* Adjust label size if needed */
+}
+
+/* Dropdown (Select) Styling */
+select {
+    font-size: 18px !important;  /* Forces larger text */
+    padding: 10px !important;  /* Ensures enough space */
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    line-height: 3 !important; /*Increases spacing between options */
+    margin-bottom: 20px; /* Space below the dropdown */
+}
+
+/* Increase spacing between each question */
+.question {
+    margin-bottom: 25px; /* Adjust spacing between questions */
+}
+
+/* Increase font size for options inside dropdown */
+select option {
+    font-size: 18px;
+    padding: 5px !important;
+    line-height: 3 !important; /* Ensures proper spacing */
+}
+
+/* Header */
+header {
+    background-color: #f8f8f8;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 36px;
+    color: #333;
+}
+
+.logo {
+    width: 400px; !important; /* Adjust as needed */
+    max-width: 100%;
+    height: auto; /* Ensures proportional scaling */
+    display: block;
+    margin: 20px auto;
+}
+
+
+/* Navigation Menu */
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: #333;
+}
+
+nav a {
+    color: #fff;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+nav a:hover {
+    background-color: #575757;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Make Buttons Bigger */
+button, .submit-btn {
+    font-size: 20px;  /* Increases text size */
+    padding: 15px 25px; /* Adds more space inside the button */
+    border-radius: 8px; /* Smooth rounded corners */
+    border: none;
+    cursor: pointer;
+}
+
+/* Ensure Button is Responsive */
+button:hover, .submit-btn:hover {
+    background-color: #0056b3; /* Darker color on hover */
+}
+
+h2 {
+    font-size: 20px;
+    color: #333;
+    margin-top: 0;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Services Section */
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.service-item {
+    flex: 1 1 calc(33% - 20px);
+    background-color: #f4f4f4;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.service-item h3 {
+    font-size: 18px;
+    color: #333;
+}
+
+.service-item p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
